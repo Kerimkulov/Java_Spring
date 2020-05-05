@@ -1,51 +1,28 @@
 package kz.iitu.remont.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Data;
 
+import javax.persistence.*;
+
+@Entity
+@Data
 public class Device {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String DeviceName;
     private String year;
     private String manufacturer;
     private String explanation;
+    private Boolean isDone = false;
+    private String deviceOwnerPhone;
+    private String deviceOwnerName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reparier_id")
+    private Reparier reparier;
 
-    public void setDeviceName(String deviceName) {
-        DeviceName = deviceName;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
-    }
-
-    public String getExplanation() {
-        return explanation;
-    }
-
-    public String getDeviceName() {
-        return DeviceName;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    @Override
-    public String toString() {
-        return "Device{" +
-                "DeviceName='" + DeviceName + '\'' +
-                '}';
-    }
+    @OneToOne(mappedBy = "device", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private FinishedDevices finishedDevices;
 }
