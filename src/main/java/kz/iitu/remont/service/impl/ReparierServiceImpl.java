@@ -68,7 +68,6 @@ public class ReparierServiceImpl implements ReparierService, UserDetailsService 
 
     @Override
     public Reparier getByUsername(String username) {
-        Reparier reparier = reparierRepository.findByUsername(username);
-        return reparier;
+        return reparierRepository.findByUsername(username);
     }
 }

@@ -20,7 +20,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("kz.iitu.librarymanagement"))
+                .apis(RequestHandlerSelectors.basePackage("kz.iitu.remont"))
                         .paths(PathSelectors.ant("/api/**"))
                         .build()
                         .apiInfo(getApiInfo());

@@ -52,13 +52,18 @@ public class ReparierController {
         reparierService.deletReparier(id);
     }
 
+    @ApiOperation(value = "Reparier by name")
+    @GetMapping("/username/{name}")
+    public Reparier reparierByName(@PathVariable String username){
+        return reparierService.getByUsername(username);
+    }
+
     @ApiOperation(value = "Add new reparier")
     @PostMapping("/signUp")
     public void newReparier(@RequestBody Reparier reparier) {
        Reparier reparier1 = reparierService.getByUsername(reparier.getUsername());
        if (reparier1 != null){
            throw new RuntimeException("With this " + reparier.getUsername() + " is exist");
-
        }
         if (reparier.getUsername().isEmpty() || reparier.getPassword().isEmpty()){
             throw new RuntimeException("username and password should not be empty");

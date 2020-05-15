@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import kz.iitu.remont.entities.Reparier;
+import kz.iitu.remont.service.impl.ReparierServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 
 public class JwtTokenGeneratorFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private ReparierServiceImpl reparierService;
 
     public JwtTokenGeneratorFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -54,8 +58,9 @@ public class JwtTokenGeneratorFilter extends UsernamePasswordAuthenticationFilte
                 .setExpiration(new Date(now + 60*60 * 1000))
                 .signWith(SignatureAlgorithm.HS512, "secret-key".getBytes())
                 .compact();
+
         System.out.println(token);
-        response.addHeader("Authorization", "Bearer " +  token);
+        response.addHeader("Authorization", token);
 
     }
 }

@@ -38,7 +38,7 @@ public class DeviceController {
     @ApiOperation(value = "Add new device")
     @PostMapping("")
     public Device newDevice(@RequestBody Device device){
-        if (device.getDeviceName().isEmpty() || device.getDeviceOwnerName().isEmpty() || device.getExplanation().isEmpty()){
+        if (device.getDeviceOwnerName().isEmpty() || device.getExplanation().isEmpty()){
             throw new RuntimeException("fields of device must be filled");
         }
         deviceRepository.save(device);

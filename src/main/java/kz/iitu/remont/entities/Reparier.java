@@ -35,8 +35,6 @@ public class Reparier implements UserDetails {
     @Setter(AccessLevel.NONE)
     private RepairCenter repairCenter;
 
-    @OneToMany(mappedBy = "reparier", fetch = FetchType.LAZY)
-    private List<Device> devices;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
